@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    build:  ./app-peliculas-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=${PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - MONGODB_URI=${MONGODB_URI}
+    restart: always
+    container_name: cometa-backend
+
+  frontend:
+    build: ./app-peliculas-frontend  
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+    container_name: cometa-frontend
